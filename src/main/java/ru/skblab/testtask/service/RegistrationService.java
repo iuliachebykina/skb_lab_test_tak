@@ -7,5 +7,5 @@ import ru.skblab.testtask.exeption.LoginExistException;
 import java.util.concurrent.TimeoutException;
 
 public interface RegistrationService {
-    void registerUser(UserDto userDto) throws LoginExistException, EmailExistException, TimeoutException;
+    void registerUser(UserDto userDto) throws LoginExistException, EmailExistException;
 }

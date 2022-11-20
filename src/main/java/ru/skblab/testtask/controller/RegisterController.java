@@ -15,8 +15,6 @@ import ru.skblab.testtask.exeption.EmailExistException;
 import ru.skblab.testtask.exeption.LoginExistException;
 import ru.skblab.testtask.service.RegistrationService;
 
-import java.util.concurrent.TimeoutException;
-
 @Controller
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -62,9 +60,6 @@ public class RegisterController {
         } catch (EmailExistException e) {
             result.rejectValue("email", null,
                     loginExistingMessage);
-        } catch (TimeoutException e) {
-            result.rejectValue("password", "400",
-                    "smth wring");
         }
 
         if(result.hasErrors()){
