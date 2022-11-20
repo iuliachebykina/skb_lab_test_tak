@@ -1,0 +1,10 @@
+version: '3'
+services:
+  test_task:
+    container_name: test_task
+    build:
+      context: .
+    image: test_task:latest
+    ports:
+      - "8090:8080"
+

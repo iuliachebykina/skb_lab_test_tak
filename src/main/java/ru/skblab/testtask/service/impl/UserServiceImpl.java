@@ -60,8 +60,7 @@ public class UserServiceImpl implements UserService {
                 .build();
 
         user.setVerification(new UserVerification());
-        User save = userRepository.save(user);
-        return save;
+        return userRepository.save(user);
     }
 
     @Override
