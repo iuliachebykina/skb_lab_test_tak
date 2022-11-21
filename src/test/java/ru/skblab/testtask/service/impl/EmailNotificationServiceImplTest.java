@@ -3,13 +3,11 @@ package ru.skblab.testtask.service.impl;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
 import ru.skblab.testtask.dto.NameInfo;
 import ru.skblab.testtask.exeption.UserNotFoundException;
 import ru.skblab.testtask.exeption.UserVerificationNotFoundException;
@@ -24,13 +22,13 @@ import java.lang.reflect.UndeclaredThrowableException;
 import java.util.Optional;
 import java.util.concurrent.TimeoutException;
 
-import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
-@RunWith(SpringRunner.class)
+
 @SpringBootTest
 @ActiveProfiles("test")
 @FieldDefaults(level = AccessLevel.PRIVATE)

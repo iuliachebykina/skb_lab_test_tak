@@ -4,10 +4,8 @@ import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 import ru.skblab.testtask.TestTaskApplication;
 import ru.skblab.testtask.jpa.entity.User;
 import ru.skblab.testtask.jpa.entity.UserVerification;
@@ -18,7 +16,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@RunWith(SpringRunner.class)
+
 @SpringBootTest(classes = TestTaskApplication.class)
 @FieldDefaults(level = AccessLevel.PRIVATE)
 class UserVerificationRepositoryTest {

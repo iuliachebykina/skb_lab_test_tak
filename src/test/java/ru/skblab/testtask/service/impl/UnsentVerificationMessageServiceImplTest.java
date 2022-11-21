@@ -3,12 +3,10 @@ package ru.skblab.testtask.service.impl;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
 import ru.skblab.testtask.dto.NameInfo;
 import ru.skblab.testtask.jpa.entity.User;
 import ru.skblab.testtask.jpa.entity.UserVerification;
@@ -20,7 +18,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
-@RunWith(SpringRunner.class)
+
 @SpringBootTest
 @ActiveProfiles("test")
 @FieldDefaults(level = AccessLevel.PRIVATE)
