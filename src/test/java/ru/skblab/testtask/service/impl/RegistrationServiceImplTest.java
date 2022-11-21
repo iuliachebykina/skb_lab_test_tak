@@ -46,7 +46,7 @@ class RegistrationServiceImplTest {
     final static UserVerification userVerification = new UserVerification();
 
 
-    final static UserRegistrationInfo USER_REGISTRATION_INFO = UserRegistrationInfo.builder()
+    final static UserRegistrationInfo userRegistrationInfo = UserRegistrationInfo.builder()
             .login(login)
             .password(password)
             .email(email)
@@ -59,7 +59,7 @@ class RegistrationServiceImplTest {
             login,
             "smth else",
             password,
-            new Name(USER_REGISTRATION_INFO.getFirstName(), USER_REGISTRATION_INFO.getLastName(), USER_REGISTRATION_INFO.getLastName()),
+            new Name(userRegistrationInfo.getFirstName(), userRegistrationInfo.getLastName(), userRegistrationInfo.getLastName()),
             userVerification,
             false);
 
@@ -67,28 +67,28 @@ class RegistrationServiceImplTest {
             "smth else",
             email,
             password,
-            new Name(USER_REGISTRATION_INFO.getFirstName(), USER_REGISTRATION_INFO.getLastName(), USER_REGISTRATION_INFO.getLastName()),
+            new Name(userRegistrationInfo.getFirstName(), userRegistrationInfo.getLastName(), userRegistrationInfo.getLastName()),
             userVerification,
             false);
 
     @Test
     public void successRegisterUserTest() throws EmailExistException, LoginExistException {
-        when(passwordEncoder.encode(USER_REGISTRATION_INFO.getPassword())).thenReturn(USER_REGISTRATION_INFO.getPassword() + "salt))");
-        registrationService.registerUser(USER_REGISTRATION_INFO);
+        when(passwordEncoder.encode(userRegistrationInfo.getPassword())).thenReturn(userRegistrationInfo.getPassword() + "salt))");
+        registrationService.registerUser(userRegistrationInfo);
     }
 
     @Test
     public void unsuccessfulRegisterUserWithEmailExistingTest() {
-        when(passwordEncoder.encode(USER_REGISTRATION_INFO.getPassword())).thenReturn(USER_REGISTRATION_INFO.getPassword() + "salt))");
-        when(userRepository.findByEmail(USER_REGISTRATION_INFO.getEmail())).thenReturn(Optional.of(userWithSameEmail));
-        assertThrows(EmailExistException.class, () -> registrationService.registerUser(USER_REGISTRATION_INFO));
+        when(passwordEncoder.encode(userRegistrationInfo.getPassword())).thenReturn(userRegistrationInfo.getPassword() + "salt))");
+        when(userRepository.findByEmail(userRegistrationInfo.getEmail())).thenReturn(Optional.of(userWithSameEmail));
+        assertThrows(EmailExistException.class, () -> registrationService.registerUser(userRegistrationInfo));
     }
 
     @Test
     public void unsuccessfulRegisterUserWithLoginExistingTest() {
-        when(passwordEncoder.encode(USER_REGISTRATION_INFO.getPassword())).thenReturn(USER_REGISTRATION_INFO.getPassword() + "salt))");
-        when(userRepository.findByLogin(USER_REGISTRATION_INFO.getLogin())).thenReturn(Optional.of(userWithSameLogin));
-        assertThrows(LoginExistException.class, () -> registrationService.registerUser(USER_REGISTRATION_INFO));
+        when(passwordEncoder.encode(userRegistrationInfo.getPassword())).thenReturn(userRegistrationInfo.getPassword() + "salt))");
+        when(userRepository.findByLogin(userRegistrationInfo.getLogin())).thenReturn(Optional.of(userWithSameLogin));
+        assertThrows(LoginExistException.class, () -> registrationService.registerUser(userRegistrationInfo));
     }
 
 }
