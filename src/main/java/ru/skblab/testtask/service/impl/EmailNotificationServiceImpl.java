@@ -8,9 +8,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import ru.skblab.testtask.aop.annotation.Loggable;
 import ru.skblab.testtask.common.IdType;
+import ru.skblab.testtask.common.NameMapper;
 import ru.skblab.testtask.dto.EmailAddress;
 import ru.skblab.testtask.dto.EmailContent;
-import ru.skblab.testtask.dto.NameDto;
+import ru.skblab.testtask.dto.NameInfo;
 import ru.skblab.testtask.exeption.UserNotFoundException;
 import ru.skblab.testtask.exeption.UserVerificationNotFoundException;
 import ru.skblab.testtask.jpa.entity.User;
@@ -30,6 +31,7 @@ public class EmailNotificationServiceImpl implements NotificationService {
     final SendMailer sendMailer;
     final UserService userService;
     final UserVerificationService userVerificationService;
+    final NameMapper nameMapper;
 
     @Value("${app.user.verification.email.message.successfully}")
     String successfullyEmail;
@@ -49,11 +51,7 @@ public class EmailNotificationServiceImpl implements NotificationService {
         EmailAddress emailAddress = EmailAddress.builder()
                 .to(user.get().getEmail())
                 .build();
-        NameDto name = NameDto.builder()
-                .firstName(user.get().getName().getFirstName())
-                .lastName(user.get().getName().getLastName())
-                .patronymic(user.get().getName().getPatronymic())
-                .build();
+        NameInfo name = nameMapper.mapNameToNameInfo(user.get().getName());
         Optional<UserVerification> userVerification = userVerificationService.getUserVerification(userId);
         if(userVerification.isEmpty()){
             throw new UserVerificationNotFoundException(userId);

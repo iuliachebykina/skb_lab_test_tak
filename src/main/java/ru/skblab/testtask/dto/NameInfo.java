@@ -9,7 +9,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class NameDto {
+public class NameInfo {
     String firstName;
     String lastName;
     String patronymic;

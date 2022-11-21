@@ -17,6 +17,14 @@ import java.util.stream.Collectors;
 @Slf4j
 public class LoggableAspect {
 
+
+    // Решила использовать АОП для выноса логики логгирования, чтобы не дублировать почти одинаковый код (и не забывать его писать)
+    // ну и в принципе упростить
+
+    // Чтобы залоггировать вызов и результат метода, нужно лишь поставить аннотацию на него
+    // так же плюс в том, что отделяется бизнес код от вот такой сквозной функциональности
+
+
     @Before(value = "@annotation(ru.skblab.testtask.aop.annotation.Loggable)")
     public void logBeforeMethodCall(JoinPoint joinPoint) {
         String className = joinPoint.getTarget().getClass().getSimpleName();

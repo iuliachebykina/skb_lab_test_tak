@@ -1,6 +1,8 @@
 package ru.skblab.testtask.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -12,7 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import ru.skblab.testtask.dto.UserDto;
+import ru.skblab.testtask.dto.UserRegistrationInfo;
 import ru.skblab.testtask.exeption.EmailExistException;
 import ru.skblab.testtask.exeption.LoginExistException;
 import ru.skblab.testtask.service.RegistrationService;
@@ -26,18 +28,19 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
+@FieldDefaults(level = AccessLevel.PRIVATE)
 class RegisterControllerTest {
     @MockBean
-    private RegistrationService registrationService;
+    RegistrationService registrationService;
 
 
-    private final static String email = "iulia@gmail.com";
+    final static String email = "iulia@gmail.com";
 
 
     @Autowired
-    private MockMvc mockMvc;
+    MockMvc mockMvc;
 
-    private final static UserDto user = UserDto.builder()
+    final static UserRegistrationInfo user = UserRegistrationInfo.builder()
             .login("iulia")
             .password("qwerty")
             .email(email)
@@ -47,7 +50,7 @@ class RegisterControllerTest {
 
             .build();
 
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    final ObjectMapper objectMapper = new ObjectMapper();
 
     @Test
     public void registerControllerOkTest() throws Exception {

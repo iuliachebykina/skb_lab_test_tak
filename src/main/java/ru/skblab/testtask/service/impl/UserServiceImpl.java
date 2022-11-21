@@ -6,7 +6,8 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.skblab.testtask.aop.annotation.Loggable;
-import ru.skblab.testtask.dto.UserDto;
+import ru.skblab.testtask.common.NameMapper;
+import ru.skblab.testtask.dto.UserRegistrationInfo;
 import ru.skblab.testtask.jpa.entity.User;
 import ru.skblab.testtask.jpa.entity.UserVerification;
 import ru.skblab.testtask.jpa.entity.valueType.Name;
@@ -22,6 +23,7 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
     final UserRepository userRepository;
     final PasswordEncoder passwordEncoder;
+    final NameMapper nameMapper;
 
     @Override
     @Loggable
@@ -45,18 +47,14 @@ public class UserServiceImpl implements UserService {
     @Override
     @Loggable
     @Transactional
-    public User createUser(UserDto userDto) {
+    public User createUser(UserRegistrationInfo userRegistrationInfo) {
 
-        Name name = Name.builder()
-                .firstName(userDto.getFirstName())
-                .lastName(userDto.getLastName())
-                .patronymic(userDto.getPatronymic())
-                .build();
+        Name name = nameMapper.mapUserRegistrationInfoToName(userRegistrationInfo);
         User user = User.builder()
-                .login(userDto.getLogin())
-                .email(userDto.getEmail())
+                .login(userRegistrationInfo.getLogin())
+                .email(userRegistrationInfo.getEmail())
                 .name(name)
-                .password(passwordEncoder.encode(userDto.getPassword()))
+                .password(passwordEncoder.encode(userRegistrationInfo.getPassword()))
                 .build();
 
         user.setVerification(new UserVerification());

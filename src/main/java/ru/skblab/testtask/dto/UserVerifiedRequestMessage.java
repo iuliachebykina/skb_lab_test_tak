@@ -11,5 +11,5 @@ import lombok.experimental.FieldDefaults;
 @Data
 public class UserVerifiedRequestMessage extends Message {
     String email;
-    NameDto name;
+    NameInfo name;
 }

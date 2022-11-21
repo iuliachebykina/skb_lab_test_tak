@@ -1,5 +1,7 @@
 package ru.skblab.testtask.service.impl;
 
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -32,44 +34,45 @@ import static org.mockito.Mockito.when;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ActiveProfiles("test")
+@FieldDefaults(level = AccessLevel.PRIVATE)
 class VerificationServiceImplTest {
 
     @MockBean
-    private MessagingService messagingService;
+    MessagingService messagingService;
     @MockBean
-    private NotificationService notificationService;
+    NotificationService notificationService;
     @MockBean
-    private UserVerificationService userVerificationService;
+    UserVerificationService userVerificationService;
     @MockBean
-    private UserService userService;
+    UserService userService;
 
     @Autowired
     VerificationServiceImpl verificationService;
 
-    private final static UserVerifiedAnswerMessage unsuccessfullyAnswer = UserVerifiedAnswerMessage.builder()
+    final static UserVerifiedAnswerMessage unsuccessfullyAnswer = UserVerifiedAnswerMessage.builder()
             .isVerified(false)
             .build();
 
-    private final static UserVerifiedAnswerMessage successfullyAnswer = UserVerifiedAnswerMessage.builder()
+    final static UserVerifiedAnswerMessage successfullyAnswer = UserVerifiedAnswerMessage.builder()
             .isVerified(true)
             .build();
 
-    private final static UserVerification userVerification = new UserVerification();
+    final static UserVerification userVerification = new UserVerification();
 
 
-    private final static NameDto name = NameDto.builder()
+    final static NameInfo name = NameInfo.builder()
             .firstName("Юлия")
             .lastName("Чебыкина")
             .patronymic("Владимировна")
             .build();
 
-    private final static String email = "iulia@gmail.ru";
+    final static String email = "iulia@gmail.ru";
 
-    private final static String login = "iulia";
-    private final static String password = "qwerty";
+    final static String login = "iulia";
+    final static String password = "qwerty";
 
 
-    private final static User user = new User(2L,
+    final static User user = new User(2L,
             login,
             email,
             password,

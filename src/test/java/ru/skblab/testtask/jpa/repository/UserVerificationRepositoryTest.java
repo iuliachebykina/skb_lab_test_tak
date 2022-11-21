@@ -1,5 +1,7 @@
 package ru.skblab.testtask.jpa.repository;
 
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -18,16 +20,17 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = TestTaskApplication.class)
+@FieldDefaults(level = AccessLevel.PRIVATE)
 class UserVerificationRepositoryTest {
 
     @Autowired
-    private UserVerificationRepository userVerificationRepository;
+    UserVerificationRepository userVerificationRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    UserRepository userRepository;
 
 
-    private final static UserVerification userVerificationWithSentNotification
+    final static UserVerification userVerificationWithSentNotification
             = new UserVerification(164756L,
             null,
             true,
@@ -35,14 +38,14 @@ class UserVerificationRepositoryTest {
             true,
             false);
 
-    private final static UserVerification userVerificationWithUnSentNotification1
+    final static UserVerification userVerificationWithUnSentNotification1
             = new UserVerification(265L,
             null,
             false,
             true,
             true,
             false);
-    private final static UserVerification userVerificationWithUnSentNotification2
+    final static UserVerification userVerificationWithUnSentNotification2
             = new UserVerification(3766L,
             null,
             false,
@@ -50,7 +53,7 @@ class UserVerificationRepositoryTest {
             true,
             false);
 
-    private final static UserVerification userVerificationWithUnSentVerificationMessage1
+    final static UserVerification userVerificationWithUnSentVerificationMessage1
             = new UserVerification(47658L,
             null,
             false,
@@ -58,7 +61,7 @@ class UserVerificationRepositoryTest {
             null,
             false);
 
-    private final static UserVerification userVerificationWithUnSentVerificationMessage2
+    final static UserVerification userVerificationWithUnSentVerificationMessage2
             = new UserVerification(58678L,
             null,
             false,
@@ -66,7 +69,7 @@ class UserVerificationRepositoryTest {
             null,
             false);
 
-    private final static UserVerification deletedUserVerification
+    final static UserVerification deletedUserVerification
             = new UserVerification(null,
             null,
             false,
@@ -75,7 +78,7 @@ class UserVerificationRepositoryTest {
             true);
 
 
-    private final static User savedUser1 = new User(
+    final static User savedUser1 = new User(
             8775861L,
             "login1",
             "email1",
@@ -83,7 +86,7 @@ class UserVerificationRepositoryTest {
             new Name("Iulia", "Chebykina"),
             userVerificationWithSentNotification,
             false);
-    private final static User savedUser2 = new User(
+    final static User savedUser2 = new User(
             876572L,
             "login2",
             "email2",
@@ -91,7 +94,7 @@ class UserVerificationRepositoryTest {
             new Name("Iulia", "Chebykina"),
             userVerificationWithUnSentNotification1,
             false);
-    private final static User savedUser3 = new User(
+    final static User savedUser3 = new User(
             875677L,
             "login3",
             "email3",
@@ -99,7 +102,7 @@ class UserVerificationRepositoryTest {
             new Name("Iulia", "Chebykina"),
             userVerificationWithUnSentNotification2,
             false);
-    private final static User savedUser4 = new User(
+    final static User savedUser4 = new User(
             83574L,
             "login4",
             "email4",
@@ -107,7 +110,7 @@ class UserVerificationRepositoryTest {
             new Name("Iulia", "Chebykina"),
             userVerificationWithUnSentVerificationMessage1,
             false);
-    private final static User savedUser5 = new User(
+    final static User savedUser5 = new User(
             86475L,
             "login5",
             "email5",
@@ -116,7 +119,7 @@ class UserVerificationRepositoryTest {
             userVerificationWithUnSentVerificationMessage2,
             false);
 
-    private final static User savedUser6 = new User(
+    final static User savedUser6 = new User(
             null,
             "login6",
             "email6",

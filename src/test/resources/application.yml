@@ -21,6 +21,11 @@ spring:
   profiles:
     active: test
 app:
+  job:
+    unsent-verification-messages:
+      enabled: true
+    unsent-notification:
+      enabled: true
   user:
     verification:
       email:

@@ -10,6 +10,7 @@ import javax.persistence.*;
 
 @Table(schema = "test_task", name = "user_verification")
 @Entity
+@ToString
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Getter
 @Setter

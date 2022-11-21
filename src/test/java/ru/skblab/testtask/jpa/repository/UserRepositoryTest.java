@@ -1,5 +1,7 @@
 package ru.skblab.testtask.jpa.repository;
 
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import ru.skblab.testtask.TestTaskApplication;
-import ru.skblab.testtask.dto.NameDto;
+import ru.skblab.testtask.dto.NameInfo;
 import ru.skblab.testtask.jpa.entity.User;
 import ru.skblab.testtask.jpa.entity.UserVerification;
 import ru.skblab.testtask.jpa.entity.valueType.Name;
@@ -21,23 +23,25 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = TestTaskApplication.class)
+@FieldDefaults(level = AccessLevel.PRIVATE)
+
 class UserRepositoryTest {
 
     @Autowired
-    private UserRepository userRepository;
+    UserRepository userRepository;
 
-    private final static NameDto name = NameDto.builder()
+    final static NameInfo name = NameInfo.builder()
             .firstName("Юлия")
             .lastName("Чебыкина")
             .patronymic("Владимировна")
             .build();
 
-    private final static String email = "iulia@gmail.ru";
-    private final static String login = "iulia";
-    private final static String password = "qwerty";
+    final static String email = "iulia@gmail.ru";
+    final static String login = "iulia";
+    final static String password = "qwerty";
 
 
-    private final static User savedUser = new User(
+    final static User savedUser = new User(
             null,
             login,
             email,
@@ -46,10 +50,10 @@ class UserRepositoryTest {
             new UserVerification(),
             false);
 
-    private final static UserVerification deletedUserVerification = new UserVerification(null, null, true, true, false, true);
+    final static UserVerification deletedUserVerification = new UserVerification(null, null, true, true, false, true);
 
 
-    private final static User deletedUser = new User(
+    final static User deletedUser = new User(
             null,
             "some login",
             "someEmail@mail.ru",

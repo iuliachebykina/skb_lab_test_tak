@@ -1,5 +1,7 @@
 package ru.skblab.testtask.service.impl;
 
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +10,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
-import ru.skblab.testtask.dto.UserDto;
+import ru.skblab.testtask.dto.UserRegistrationInfo;
 import ru.skblab.testtask.jpa.entity.User;
 import ru.skblab.testtask.jpa.entity.UserVerification;
 import ru.skblab.testtask.jpa.entity.valueType.Name;
@@ -23,26 +25,27 @@ import static org.mockito.Mockito.when;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ActiveProfiles("test")
+@FieldDefaults(level = AccessLevel.PRIVATE)
 class UserServiceImplTest {
 
     @MockBean
-    private UserRepository userRepository;
+    UserRepository userRepository;
     @MockBean
-    private PasswordEncoder passwordEncoder;
+    PasswordEncoder passwordEncoder;
 
     @Autowired
-    private UserServiceImpl userService;
+    UserServiceImpl userService;
 
 
-    private final static String login = "iulia";
-    private final static String email = "iulia@mail.ru";
-    private final static String password = "qwerty";
-    private final static String passwordSalt = "salt";
-    private final static String firstName = "Iulia";
-    private final static String lastName = "Chebykina";
+    final static String login = "iulia";
+    final static String email = "iulia@mail.ru";
+    final static String password = "qwerty";
+    final static String passwordSalt = "salt";
+    final static String firstName = "Iulia";
+    final static String lastName = "Chebykina";
 
 
-    private final static User savedUser = new User(
+    final static User savedUser = new User(
             1L,
             login,
             email,
@@ -51,7 +54,7 @@ class UserServiceImplTest {
             new UserVerification(),
             false);
 
-    private final static UserDto userDto = UserDto.builder()
+    final static UserRegistrationInfo USER_REGISTRATION_INFO = UserRegistrationInfo.builder()
             .firstName(firstName)
             .lastName(lastName)
             .password(password)
@@ -106,7 +109,7 @@ class UserServiceImplTest {
     void createUserTest() {
         when(passwordEncoder.encode(password)).thenReturn(password+passwordSalt);
         when(userRepository.save(any())).thenReturn(savedUser);
-        User user = userService.createUser(userDto);
+        User user = userService.createUser(USER_REGISTRATION_INFO);
         assertEquals(login, user.getLogin());
         assertEquals(email, user.getEmail());
         assertEquals(password+passwordSalt, user.getPassword());

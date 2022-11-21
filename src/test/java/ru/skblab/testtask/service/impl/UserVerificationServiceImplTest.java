@@ -1,5 +1,7 @@
 package ru.skblab.testtask.service.impl;
 
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -25,15 +27,16 @@ import static org.mockito.Mockito.when;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ActiveProfiles("test")
+@FieldDefaults(level = AccessLevel.PRIVATE)
 class UserVerificationServiceImplTest {
 
     @MockBean
-    private UserVerificationRepository userVerificationRepository;
+    UserVerificationRepository userVerificationRepository;
 
     @Autowired
-    private UserVerificationServiceImpl userVerificationService;
+    UserVerificationServiceImpl userVerificationService;
 
-    private final static UserVerification userVerification = new UserVerification();
+    final static UserVerification userVerification = new UserVerification();
 
     @Test
     void getEmptyUserVerificationTest() {

@@ -7,7 +7,8 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
 import ru.skblab.testtask.aop.annotation.Loggable;
 import ru.skblab.testtask.common.IdType;
-import ru.skblab.testtask.dto.NameDto;
+import ru.skblab.testtask.common.NameMapper;
+import ru.skblab.testtask.dto.NameInfo;
 import ru.skblab.testtask.dto.UserVerifiedAnswerMessage;
 import ru.skblab.testtask.dto.UserVerifiedRequestMessage;
 import ru.skblab.testtask.exeption.UserNotFoundException;
@@ -25,6 +26,7 @@ public class VerificationServiceImpl implements VerificationService {
     final NotificationService notificationService;
     final UserVerificationService userVerificationService;
     final UserService userService;
+    final NameMapper nameMapper;
 
     @SneakyThrows
     @Override
@@ -34,11 +36,7 @@ public class VerificationServiceImpl implements VerificationService {
         if(user.isEmpty()){
             throw new UserNotFoundException(IdType.ID, userId.toString());
         }
-        NameDto name = NameDto.builder()
-                .firstName(user.get().getName().getFirstName())
-                .lastName(user.get().getName().getLastName())
-                .patronymic(user.get().getName().getPatronymic())
-                .build();
+        NameInfo name = nameMapper.mapNameToNameInfo(user.get().getName());
         UserVerifiedRequestMessage message = UserVerifiedRequestMessage.builder()
                 .email(user.get().getEmail())
                 .name(name)

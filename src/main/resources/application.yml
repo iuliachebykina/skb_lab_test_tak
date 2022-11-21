@@ -18,7 +18,15 @@ spring:
       enabled: 'true'
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
+
 app:
+  job:
+    unsent-verification-messages:
+      enabled: true
+      cron: 0 */5 * * * *
+    unsent-notification:
+      enabled: true
+      cron: 0 */5 * * * *
   user:
     verification:
       email:

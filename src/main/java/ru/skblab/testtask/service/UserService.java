@@ -1,6 +1,6 @@
 package ru.skblab.testtask.service;
 
-import ru.skblab.testtask.dto.UserDto;
+import ru.skblab.testtask.dto.UserRegistrationInfo;
 import ru.skblab.testtask.jpa.entity.User;
 
 import java.util.Optional;
@@ -12,7 +12,7 @@ public interface UserService {
 
     Optional<User> getUserByLogin(String login);
 
-    User createUser(UserDto user);
+    User createUser(UserRegistrationInfo user);
 
     Boolean isExistEmail(String email);
 

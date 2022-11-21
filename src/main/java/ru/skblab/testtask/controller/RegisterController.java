@@ -10,7 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import ru.skblab.testtask.dto.UserDto;
+import ru.skblab.testtask.dto.UserRegistrationInfo;
 import ru.skblab.testtask.exeption.EmailExistException;
 import ru.skblab.testtask.exeption.LoginExistException;
 import ru.skblab.testtask.service.RegistrationService;
@@ -25,8 +25,14 @@ public class RegisterController {
     String emailExistingMessage;
     @Value("${app.register.message.login-existing}")
     String loginExistingMessage;
-    @Value("${app.register.message.unsuccessful}")
-    String unsuccessfulMessage;
+
+
+    // для формы регистрации использовала Spring MVC и шаблонизатор Thymeleaf
+
+    // тк благодаря Spring Boot и Spring MVC для создания контроллера мне необходимо всего лишь
+    // создать класс с аннотацией @Controller, метод с несколькими аннотациями в зависимости от запроса,
+    // выполнить нужную мне логику для заполнения модели
+    // и вернуть из метода строку с именем нужного HTML шаблона для отображения
 
 
     @GetMapping("/index")
@@ -42,18 +48,18 @@ public class RegisterController {
 
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
-        UserDto user = new UserDto();
+        UserRegistrationInfo user = new UserRegistrationInfo();
         model.addAttribute("user", user);
         return "register";
     }
 
     @PostMapping("/register/save")
-    public String registration(@ModelAttribute("user") UserDto userDto,
+    public String registration(@ModelAttribute("user") UserRegistrationInfo userRegistrationInfo,
                                BindingResult result,
                                Model model) {
 
         try {
-            registrationService.registerUser(userDto);
+            registrationService.registerUser(userRegistrationInfo);
         } catch (LoginExistException e) {
             result.rejectValue("login", null,
                     loginExistingMessage);
@@ -63,7 +69,7 @@ public class RegisterController {
         }
 
         if(result.hasErrors()){
-            model.addAttribute("user", userDto);
+            model.addAttribute("user", userRegistrationInfo);
             return "/register";
         }
 
